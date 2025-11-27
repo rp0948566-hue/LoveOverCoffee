@@ -1,0 +1,93 @@
+PROJECT: "Love Over Coffee" - Ultimate Gen-Z Experience Website
+
+ROLE: You are a World-Class UI/UX Designer and Senior Frontend Engineer (Awwwards-winning level). Your goal is to build the most stunning, interactive, and functional coffee shop website imaginable.
+
+CONTEXT: We are building a website for "Love Over Coffee" in Indore. It needs to be a "Gen-Z" style website: highly animated, dark-themed, premium, glossy, and interactive.
+
+REFERENCE AESTHETIC (Critical):
+
+Theme: Dark Mode Deep Space (Midnight Blues, Deep Purples, and Coffee Browns).
+
+Vibe: "Liquid Motion". Think of the 'Revocalize.ai' website.
+
+Background: I want a continuous, smooth "Water Wave" or "Liquid Smoke" animation flowing in the background of the AI Chat section and Hero section. It should look alive.
+
+Glassmorphism: Heavy use of blurry, frosted glass (backdrop-filter: blur) for cards, buttons, and the navbar.
+
+1. FILE STRUCTURE & ASSETS
+
+You must use these EXACT paths for images. Do not change them.
+
+Icon: Icon/faverat.ico
+
+Menu Images: menu-pichers/2023-09-03 (1).webp through (6).webp and 2023-09-03.png.
+
+Gallery Images: Gallery/1.webp through 49.webp.
+
+Videos: Vedio/1.mp4 through 5.mp4.
+
+AI Background: AI-BACKGROUND/Ai.jpg.
+
+2. KEY SECTIONS & ANIMATIONS
+
+A. The "WOW" Hero Section
+
+Background: A stunning CSS/Canvas liquid wave animation (Purple/Blue/Gold gradients) that moves slowly.
+
+Title: "Wake Up to Love Over Coffee" with a glowing text effect (neon).
+
+Interaction: When the mouse moves, elements should slightly tilt (3D parallax effect).
+
+B. The "Maggie" AI Assistant (The Core Feature)
+
+This is the most important part. You must implement the "Maggie" AI Side Panel exactly as described below:
+
+Trigger: A floating "Glass Button" in the bottom right corner. It should have a "breathing" glow animation. Text: "Ask Maggie ✨".
+
+UI: When clicked, a side drawer slides in from the right (Glassmorphism style).
+
+Background: Use AI-BACKGROUND/Ai.jpg but add a floating particle effect over it.
+
+Logic: - API Key: Use this exact key hardcoded: AIzaSyDJfYpgl9W7FEMpUmnXjU9HnSi1A365lEY.
+
+Voice: Auto-speak with a soft female voice. Include a Mute toggle icon.
+
+Menu Data: Pre-load the AI with the full menu (Hot Coffee, Cold Coffee, Pizza, Pasta, Maggie, Sandwiches, Shakes, etc.).
+
+Context: If I say "I'm heartbroken", she suggests chocolate. If "Date", she suggests sharing platters.
+
+Input: Text input + Mic button (for voice command simulation).
+
+C. Smart Menu (Carousel)
+
+Use Swiper.js for a smooth, infinite loop slider.
+
+Hover Effect: When hovering over a menu card, it should scale up, glow, and show the price/details in a slide-up animation.
+
+D. Responsive Intelligence
+
+Auto-Detect Device: - On Mobile: The layout shifts to a vertical stack, fonts resize for readability, and the "Ask Maggie" button becomes a thumb-friendly FAB (Floating Action Button).
+
+On Desktop: Full wide layouts with parallax scrolling.
+
+3. TECHNICAL REQUIREMENTS (The Code)
+
+Framework: HTML5, Tailwind CSS (via CDN), Vanilla JavaScript.
+
+Libraries: - Swiper.js (for sliders).
+
+Leaflet.js (for the map).
+
+Lucide (for icons).
+
+GSAP (GreenSock) -> USE THIS for the "Wow" animations (scroll triggers, entrance animations).
+
+Performance: Lazy load images (loading="lazy").
+
+4. DETAILED "MAGGIE" SYSTEM PROMPT (Inject this into the JS)
+
+Use this exact system prompt for the AI logic:
+"You are Maggie, the AI Waiter for 'Love Over Coffee Indore'. Address: PLOT NO 11, Scheme No 51. TONE: Warm, Gen-Z, Hinglish allowed. RULES: Keep answers under 40 words. If user mentions a mood (Breakup, Date, Work), suggest specific items. Suggest menu items like Cappuccino (130), Paneer Bhurji Pizza (360), etc."
+
+OUTPUT INSTRUCTION:
+Generate the complete, single-file index.html code that includes the CSS animations, the JS logic for Maggie, and the HTML structure. It should be ready to run and look absolutely mind-blowing.

@@ -1,0 +1,119 @@
+PROJECT: "Love Over Coffee" - The Ultimate Gen-Z Experience (No-API Version)
+
+ROLE: You are a Senior Creative Developer (Awwwards/FWA level).
+GOAL: Build a single-file, production-ready index.html that is visually mind-blowing, fully responsive, and features a "Local AI" that requires NO external API keys.
+
+1. DESIGN SYSTEM & AESTHETIC
+
+Theme: "Dark Mode Liquid Deep Space".
+
+Colors: Background is Deep Midnight Blue (#050511). Accents are Neon Purple, Coffee Brown, and Gold.
+
+Vibe: Fluid, glossy, high-end. Use backdrop-filter: blur(20px) extensively (Glassmorphism).
+
+Font: 'Roboto' (Body) and a modern display font like 'Oswald' or 'Playfair Display' for Headers.
+
+2. ASSET PATHS (Use EXACTLY these)
+
+Menu Images: menu-pichers/2023-09-03 (1).webp to (6).webp, 2023-09-03.png.
+
+Gallery: Gallery/1.webp to 49.webp.
+
+Videos: Vedio/1.mp4 to 5.mp4.
+
+AI Background: AI-BACKGROUND/Ai.jpg.
+
+Icon: Icon/faverat.ico.
+
+3. CORE ANIMATION: The "Liquid Switch" Hero Section
+
+Technology: Use GSAP (GreenSock) for this.
+Behavior:
+
+The Stage: A central spotlight showcasing one "Hero Item" (e.g., Cold Coffee).
+
+The Transition: Every 3.5 seconds:
+
+The Current Item slides DOWN and fades out (motion blur effect).
+
+The Next Item slides UP from the bottom to take center stage.
+
+Background Sync: The liquid background gradient MUST change color to match the item (e.g., Brown for Coffee → Red for Pizza → Green for Mojito).
+
+Items Sequence:
+
+Slide 1: Cold Coffee (Img: menu-pichers/2023-09-03 (1).webp) -> Bg: Deep Brown/Cream.
+
+Slide 2: Pizza (Img: menu-pichers/2023-09-03 (6).webp) -> Bg: Deep Red/Orange.
+
+Slide 3: Mojito (Img: menu-pichers/2023-09-03.png) -> Bg: Fresh Green/Teal.
+
+Slide 4: Sandwich (Img: menu-pichers/2023-09-03 (5).webp) -> Bg: Golden/Yellow.
+
+4. THE "MAGGIE" LOCAL AI (The Brain)
+
+CRITICAL: Do NOT use an API Key. Build a Rule-Based Intent Engine in JavaScript.
+This allows the site to be hosted for free with unlimited users.
+
+Data to Hardcode (The Knowledge Base):
+Load this exact menu data into a constant variable MENU_DB:
+
+Coffee: Cappuccino (₹160), Lotus Biscoff (₹190), Espresso (₹110), Hot Chocolate (₹180).
+
+Cold: Tiramisu Frappe (₹240), Dark Choco Frappe (₹200), Oreo Frappe (₹220).
+
+Food: Paneer Bhurji Pizza (₹400), Farm Fresh Pizza (₹330), Pesto Veg Sandwich (₹330).
+
+Snacks: Peri Peri Fries (₹220), Cheese Nachos (₹270), Masala Maggi (₹180).
+
+Address: PLOT NO 11, Scheme No 51, Scheme No 113, Indore. Phone: 093296 97769.
+
+Logic (The Chatbot):
+Create a function getMaggieResponse(text) that scans for keywords:
+
+If text contains "price" + item name: Return the exact price from MENU_DB.
+
+If text contains "sad", "breakup", "heartbroken": Return "Oh no! 🥺💔 A Dark Chocolate Frappe (₹200) is the best cure for a broken heart. Sweetness heals everything!"
+
+If text contains "date", "girlfriend", "love": Return "Ooh, romantic! 💍✨ I recommend sharing a Paneer Bhurji Pizza (₹400) and two Cappuccinos. Perfect for couples!"
+
+If text contains "menu": Return a neatly formatted list of categories (Coffee, Pizza, Shakes).
+
+Default Fallback: "I'm Maggie! I know everything about Love Over Coffee. Ask me about prices, 'best pizza', or tell me your mood!"
+
+UI Features:
+
+Trigger: "Ask Maggie ✨" Glass Button in the Header (Navbar).
+
+Drawer: Slides in from the right. Background image: AI-BACKGROUND/Ai.jpg.
+
+Speech: Use window.speechSynthesis (Web Speech API) with a Female voice to read the answers aloud. Include a Mute button.
+
+5. COMPLETE PAGE STRUCTURE
+
+Header: Glassmorphism. Logo left, Links center, "Ask Maggie" button right.
+
+Hero: The GSAP Vertical Switcher described above.
+
+About: Standard layout with images.
+
+Menu: Horizontal Swiper.js slider with the card images provided.
+
+Gallery: Grid layout of gallery images.
+
+Video: Slider of MP4s.
+
+Reviews: Swiper.js testimonial slider.
+
+Map Widget: Leaflet.js map centered on the Indore coordinates (22.7244, 75.8456). Include "Get Directions" button.
+
+OUTPUT INSTRUCTION:
+Generate the FULL, SINGLE-FILE index.html code.
+
+Include all CSS (Tailwind + Custom Animations).
+
+Include all JS (GSAP, Swiper, Leaflet, and the complex Maggie Logic).
+
+Ensure the code handles missing images gracefully (onerror fallback).
+
+Make it fully responsive (Mobile Stacked / Desktop Wide).

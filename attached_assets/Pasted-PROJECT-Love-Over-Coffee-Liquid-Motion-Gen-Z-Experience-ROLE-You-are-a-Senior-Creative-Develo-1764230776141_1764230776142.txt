@@ -1,0 +1,93 @@
+PROJECT: Love Over Coffee - "Liquid Motion" Gen-Z Experience
+
+ROLE: You are a Senior Creative Developer (Awwwards/FWA level).
+GOAL: Build a single-file, production-ready index.html that is visually mind-blowing, fully responsive, and functionally robust.
+
+1. DESIGN SYSTEM & AESTHETIC
+
+Theme: "Dark Mode Deep Space". Colors: Midnight Blue (#0a0a1a), Coffee Brown (#3b2f2f), Neon Blue/Purple Accents.
+
+Vibe: Fluid, Liquid, High-End.
+
+Font: 'Roboto' (Body) and a modern display font for Headers.
+
+Responsiveness: MOBILE FIRST. The site must auto-detect screen size.
+
+Mobile: Stacked layout, large touch targets, readable text.
+
+Desktop: Wide layouts, parallax effects, hover interactions.
+
+2. ASSET PATHS (Do Not Change)
+
+Icon: Icon/faverat.ico
+
+Hero/Menu Images: menu-pichers/2023-09-03 (1).webp to (6).webp and 2023-09-03.png.
+
+Gallery: Gallery/1.webp to 49.webp.
+
+Videos: Vedio/1.mp4 to 5.mp4.
+
+AI Background: AI-BACKGROUND/Ai.jpg.
+
+3. CORE SECTIONS & ANIMATIONS
+
+A. The "WOW" Hero Section (Vertical Switcher)
+
+CRITICAL REQUIREMENT: Implement a GSAP-powered vertical carousel.
+
+Visual: A central "Stage" showing one item at a time.
+
+Animation Logic (The "Switch"):
+
+Current Item (e.g., Cold Coffee) slides DOWN and fades out.
+
+Next Item (e.g., Chocolate Shake) slides UP from the bottom to take center stage.
+
+Background Transition: As the item switches, the liquid wave background color gently shifts (e.g., Brown → Purple → Red).
+
+Items to Cycle: Cold Coffee, Chocolate Shake, Pizza, Fries, Brownie, Mojito, Sandwich.
+
+B. The "Maggie" AI Assistant (Integrated)
+
+Trigger Location: REMOVE the floating button from the bottom right. Place the "Ask Maggie ✨" button prominently in the Header / Navbar.
+
+Interface: A glassmorphism side-drawer sliding from the right.
+
+Background: Use AI-BACKGROUND/Ai.jpg.
+
+Functionality:
+
+API Key: AIzaSyDJfYpgl9W7FEMpUmnXjU9HnSi1A365lEY (Hardcoded).
+
+Voice: Auto-speak (Female voice). Mute toggle included.
+
+Intelligence: Full menu knowledge. Context aware.
+
+C. Smart Sections
+
+Menu: Horizontal scroll with snap effect (Swiper.js). Cards glow on hover.
+
+Gallery: Masonry or Grid layout that adjusts to mobile (1 column) vs desktop (3 columns).
+
+Location Map: Leaflet.js map with a "Get Directions" button.
+
+4. TECHNICAL STACK & RULES
+
+Single File: All HTML, CSS, and JS in one file.
+
+Libraries: - Tailwind CSS (CDN)
+
+GSAP (CDN) - Essential for the Hero animation
+
+Swiper.js (CDN)
+
+Leaflet.js (CDN)
+
+Lucide Icons (CDN)
+
+Clean Code: No broken tags. proper indentation.
+
+Error Handling: Add onerror fallbacks for all images.
+
+ACTION:
+Generate the full index.html code now. Focus heavily on the Hero Section GSAP Animation (Vertical Slide Down/Up) and ensuring the Mobile View looks perfect.

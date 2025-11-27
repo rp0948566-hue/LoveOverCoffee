@@ -1,0 +1,68 @@
+PROJECT: "Love Over Coffee" - The Ultimate Liquid Motion Experience
+
+ROLE: You are a Senior Creative Frontend Engineer (Awwwards/FWA level).
+GOAL: Build a single-file, production-ready index.html that is visually stunning, fully responsive, and features a smart "Local AI" (Maggie) without using external API keys.
+
+1. DESIGN VISUALS: "Liquid Deep Space"
+
+Theme: Dark Mode (#050511 background).
+
+Aesthetic: "Liquid Motion". Think of the 'Revocalize.ai' website.
+
+Background: A continuous, smooth "Water Wave" animation (CSS/Canvas) flowing in the background. It must feel alive.
+
+Glassmorphism: Heavy use of backdrop-filter: blur(20px) for all cards, navbar, and the AI drawer.
+
+Font: 'Roboto' (Body) and a modern display font for Headers.
+
+2. ASSETS (Use These EXACT Paths)
+
+Icon: Icon/faverat.ico
+
+Menu/Hero Images: menu-pichers/2023-09-03 (1).webp to (6).webp, 2023-09-03.png.
+
+Gallery: Gallery/1.webp to 49.webp.
+
+Videos: Vedio/1.mp4 to 5.mp4.
+
+AI Background: AI-BACKGROUND/Ai.jpg.
+
+3. CORE ANIMATION: The "Vertical Flow" Hero Section
+
+REQUIREMENT: Use GSAP (GreenSock) to create a seamless product switcher.
+Logic:
+
+The Stage: Center screen shows one "Hero Item".
+
+The Switch (Every 3.5s):
+
+Exit: The Current Item slides DOWN and fades out (with motion blur).
+
+Enter: The Next Item slides UP from the bottom to take the center spot.
+
+Background: The liquid wave colors must smoothly transition to match the item (e.g., Brown -> Purple -> Red -> Green).
+
+Sequence:
+
+Item 1: Cold Coffee (menu-pichers/2023-09-03 (1).webp) -> Bg: Deep Coffee Brown.
+
+Item 2: Pizza (menu-pichers/2023-09-03 (6).webp) -> Bg: Fiery Red/Orange.
+
+Item 3: Mojito (menu-pichers/2023-09-03.png) -> Bg: Fresh Mint Green.
+
+Item 4: Sandwich (menu-pichers/2023-09-03 (5).webp) -> Bg: Golden Yellow.
+
+4. "MAGGIE" - THE LOCAL AI (No API Key)
+
+Build a JavaScript-based Intent Engine that simulates an AI. It must process user text and reply intelligently using hardcoded data.
+
+A. The Database (Hardcode this exact data):
+
+const MENU_DB = {
+  "Cappuccino": 160, "Espresso": 110, "Americano": 150, "Hot Chocolate": 180,
+  "Cafe Frappe": 190, "Tiramisu Frappe": 240, "Dark Choco Frappe": 200, "Nutella Frappe": 300,
+  "Cheese Margarita": 310, "Paneer Bhurji Pizza": 400, "Farm Fresh Pizza": 330,
+  "Pesto Grilled Sandwich": 330, "Veg Club Sandwich": 260, "Tandoori Paneer Sandwich": 270,
+  "Peri Peri Fries": 220, "Cheese Nachos": 270, "Pao Bhaji Fondue": 350,
+  "Virgin Mojito": 170, "Blueberry Ice Tea": 200
+};

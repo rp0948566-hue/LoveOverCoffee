@@ -1,0 +1,2563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Over Coffee - Indore's Most Aesthetic Cafe</title>
+    <meta name="description"
+        content="Experience the best coffee, pizza, mojitos and more at Love Over Coffee - Indore's most aesthetic hidden gem with amazing ambiance.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- vedio by rudra -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-midnight': '#050511',
+                        'neon-purple': '#8B5CF6',
+                        'coffee-brown': '#8B4513',
+                        'gold-accent': '#FFD700',
+                        'fiery-red': '#DC2626',
+                        'mint-green': '#10B981',
+                        'golden-yellow': '#F59E0B'
+                    },
+                    fontFamily: {
+                        'roboto': ['Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #050511;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Liquid Wave Background */
+        .liquid-wave-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .liquid-wave-bg::before,
+        .liquid-wave-bg::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            animation: liquidFlow 15s ease-in-out infinite;
+        }
+
+        .liquid-wave-bg::before {
+            background: radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
+            animation-delay: 0s;
+        }
+
+        .liquid-wave-bg::after {
+            background: radial-gradient(ellipse at 60% 40%, rgba(236, 72, 153, 0.1) 0%, transparent 45%),
+                radial-gradient(ellipse at 20% 70%, rgba(139, 69, 19, 0.12) 0%, transparent 35%);
+            animation-delay: -7.5s;
+        }
+
+        @keyframes liquidFlow {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: translate(2%, 3%) rotate(2deg) scale(1.02);
+            }
+
+            50% {
+                transform: translate(-1%, 2%) rotate(-1deg) scale(0.98);
+            }
+
+            75% {
+                transform: translate(1%, -2%) rotate(1deg) scale(1.01);
+            }
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* Menu Tabs */
+        .menu-tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: #9CA3AF;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-tab:hover {
+            background: rgba(139, 92, 246, 0.2);
+            color: #A78BFA;
+        }
+
+        .menu-tab.active {
+            background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+            color: white;
+            border-color: #8B5CF6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Menu Panels */
+        .menu-panel {
+            display: none;
+            grid-column: 1 / -1;
+        }
+
+        .menu-panel.active {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .menu-panel.active {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .menu-panel.active {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Hero Carousel Item */
+        .hero-item {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(100%);
+            filter: blur(10px);
+        }
+
+        .hero-item.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .hero-image-container {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.4);
+        }
+
+        @media (min-width: 768px) {
+            .hero-image-container {
+                width: 400px;
+                height: 400px;
+            }
+        }
+
+        /* Maggie Drawer */
+        .maggie-drawer {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .maggie-drawer.open {
+            transform: translateX(0);
+        }
+
+        /* Masonry Gallery */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .masonry-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+        }
+
+        .masonry-item:nth-child(3n+1) {
+            grid-row: span 2;
+        }
+
+        /* Swiper Custom Styles */
+        .menu-swiper .swiper-slide {
+            width: 280px;
+            height: auto;
+        }
+
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #8B5CF6;
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #FFD700, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hide scrollbar but allow scroll */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Background color transitions */
+        .hero-bg {
+            transition: background-color 0.8s ease-in-out;
+        }
+
+        .bg-coffee {
+            background-color: #2a1810;
+        }
+
+        .bg-fiery {
+            background-color: #2d1212;
+        }
+
+        .bg-mint {
+            background-color: #0d2a1f;
+        }
+
+        .bg-golden {
+            background-color: #2d2510;
+        }
+
+        /* Chat bubble styles */
+        .chat-bubble-user {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            border-radius: 18px 18px 4px 18px;
+        }
+
+        .chat-bubble-maggie {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 18px 18px 18px 4px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        /* vedio rudra */
+
+        /* Custom Styles for Glass Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        body {
+            background-color: #0f172a;
+            /* Dark background to match the theme */
+            color: white;
+        }
+
+        /* Swiper Pagination Customization */
+        .swiper-pagination-bullet {
+            background: #4b5563;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #60a5fa;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass" data-testid="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2" data-testid="link-logo">
+                <span class="text-2xl font-bold gradient-text">Love Over Coffee</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#about" class="text-gray-300 hover:text-white transition-colors"
+                    data-testid="link-about">About</a>
+                <a href="#menu" class="text-gray-300 hover:text-white transition-colors"
+                    data-testid="link-menu">Menu</a>
+                <a href="#gallery" class="text-gray-300 hover:text-white transition-colors"
+                    data-testid="link-gallery">Gallery</a>
+                <a href="#location" class="text-gray-300 hover:text-white transition-colors"
+                    data-testid="link-location">Location</a>
+            </div>
+
+            <button id="askMaggieBtn"
+                class="glass px-4 py-2 rounded-full text-sm font-medium text-white hover:bg-white/10 transition-all flex items-center gap-2"
+                data-testid="button-ask-maggie-nav">
+                <span>Ask Maggie</span>
+                <span class="text-lg">✨</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen overflow-hidden hero-bg bg-coffee" data-testid="hero-section">
+        <div class="liquid-wave-bg"></div>
+
+        <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-center mb-4 gradient-text"
+                data-testid="text-hero-title">
+                LOVE OVER COFFEE
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl mb-8" data-testid="text-hero-subtitle">Where every sip tells a
+                story</p>
+
+            <!-- Hero Carousel -->
+            <div class="relative w-full h-96 md:h-[500px]" id="heroCarousel">
+                <!-- Item 1: Cold Coffee -->
+                <div class="hero-item active" data-index="0" data-bg="coffee">
+                    <div class="text-center">
+                        <div class="hero-image-container mx-auto mb-6">
+                            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=400&fit=crop"
+                                alt="Cold Coffee" class="w-full h-full object-cover" data-testid="img-hero-cold-coffee">
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Cold Coffee</h2>
+                        <p class="text-coffee-brown text-xl font-semibold">₹190</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Pizza -->
+                <div class="hero-item" data-index="1" data-bg="fiery">
+                    <div class="text-center">
+                        <div class="hero-image-container mx-auto mb-6">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop"
+                                alt="Pizza" class="w-full h-full object-cover" data-testid="img-hero-pizza">
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Artisan Pizza</h2>
+                        <p class="text-fiery-red text-xl font-semibold">₹310</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Mojito -->
+                <div class="hero-item" data-index="2" data-bg="mint">
+                    <div class="text-center">
+                        <div class="hero-image-container mx-auto mb-6">
+                            <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=400&fit=crop"
+                                alt="Mojito" class="w-full h-full object-cover" data-testid="img-hero-mojito">
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Fresh Mojito</h2>
+                        <p class="text-mint-green text-xl font-semibold">₹170</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: Sandwich -->
+                <div class="hero-item" data-index="3" data-bg="golden">
+                    <div class="text-center">
+                        <div class="hero-image-container mx-auto mb-6">
+                            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&h=400&fit=crop"
+                                alt="Sandwich" class="w-full h-full object-cover" data-testid="img-hero-sandwich">
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Gourmet Sandwich</h2>
+                        <p class="text-golden-yellow text-xl font-semibold">₹260</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Dots -->
+            <div class="flex gap-3 mt-8" id="carouselDots">
+                <button class="w-3 h-3 rounded-full bg-neon-purple transition-all" data-index="0"
+                    data-testid="button-dot-0"></button>
+                <button class="w-3 h-3 rounded-full bg-white/30 transition-all" data-index="1"
+                    data-testid="button-dot-1"></button>
+                <button class="w-3 h-3 rounded-full bg-white/30 transition-all" data-index="2"
+                    data-testid="button-dot-2"></button>
+                <button class="w-3 h-3 rounded-full bg-white/30 transition-all" data-index="3"
+                    data-testid="button-dot-3"></button>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8 text-white/50"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 relative" data-testid="about-section">
+        <div class="liquid-wave-bg opacity-50"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 gradient-text" data-testid="text-about-title">What Makes Our
+                Coffee Special</h2>
+            <p class="text-gray-400 text-lg md:text-xl leading-relaxed mb-12" data-testid="text-about-description">
+                At Love Over Coffee, we believe every cup tells a story. Our carefully sourced beans,
+                artisanal brewing methods, and cozy ambiance create an experience that goes beyond just coffee.
+                Whether you're here for a quiet moment alone or a lively gathering with friends,
+                we're here to make your day a little brighter, one sip at a time.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-2xl" data-testid="card-about-beans">
+                    <div
+                        class="w-16 h-16 mx-auto mb-4 rounded-full bg-coffee-brown/20 flex items-center justify-center">
+                        <i data-lucide="coffee" class="w-8 h-8 text-coffee-brown"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Premium Beans</h3>
+                    <p class="text-gray-400">Hand-picked from the finest estates</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl" data-testid="card-about-craft">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-neon-purple/20 flex items-center justify-center">
+                        <i data-lucide="heart" class="w-8 h-8 text-neon-purple"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Made with Love</h3>
+                    <p class="text-gray-400">Every drink crafted with passion</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-2xl" data-testid="card-about-vibe">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gold-accent/20 flex items-center justify-center">
+                        <i data-lucide="sparkles" class="w-8 h-8 text-gold-accent"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Aesthetic Vibes</h3>
+                    <p class="text-gray-400">Instagram-worthy ambiance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 px-4" data-testid="menu-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text" data-testid="text-menu-title">Our
+                Menu</h2>
+            <p class="text-gray-400 text-center mb-8">Explore our complete menu with 100+ items</p>
+
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8" id="menu-tabs" data-testid="menu-tabs">
+                <button class="menu-tab active px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="hot-coffee" data-testid="tab-hot-coffee">Hot Coffee</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="cold-coffee" data-testid="tab-cold-coffee">Cold Coffee</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="shakes" data-testid="tab-shakes">Shakes</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="mojitos" data-testid="tab-mojitos">Mojitos</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="ice-tea" data-testid="tab-ice-tea">Ice Tea</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all" data-category="pizza"
+                    data-testid="tab-pizza">Pizza</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="sandwich" data-testid="tab-sandwich">Sandwich</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all" data-category="pasta"
+                    data-testid="tab-pasta">Pasta</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="maggie" data-testid="tab-maggie">Maggie</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="nachos" data-testid="tab-nachos">Nachos</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all" data-category="fries"
+                    data-testid="tab-fries">Loaded Fries</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="potato" data-testid="tab-potato">Potato Shots</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="garlic-bread" data-testid="tab-garlic-bread">Garlic Bread</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all" data-category="wraps"
+                    data-testid="tab-wraps">Wraps</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="chef-special" data-testid="tab-chef-special">Chef Special</button>
+                <button class="menu-tab px-4 py-2 rounded-full text-sm font-medium transition-all"
+                    data-category="desserts" data-testid="tab-desserts">Desserts</button>
+            </div>
+
+            <!-- Menu Content Panels -->
+            <div id="menu-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                <!-- HOT COFFEE -->
+                <div class="menu-panel active" data-panel="hot-coffee">
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-espresso">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Espresso</h4><span
+                                class="text-gold-accent font-bold">₹110</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Full flavoured concentrated foam of coffee</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-americano">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Americano</h4><span
+                                class="text-gold-accent font-bold">₹150</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso shot brewed with hot water</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-cappuccino">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cappuccino</h4><span
+                                class="text-gold-accent font-bold">₹160</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with steamed milk and foam</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-latte">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cafe Latte</h4><span
+                                class="text-gold-accent font-bold">₹170</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with steamed milk and foam layer</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Flat White</h4><span
+                                class="text-gold-accent font-bold">₹170</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with steamed milk and micro foam</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Iced Americano</h4><span
+                                class="text-gold-accent font-bold">₹170</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with water chilled with ice</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Irish Americano</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with Irish syrup</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Hot Chocolate</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Dark chocolate with hot milk</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cafe Mocha</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with chocolate sauce and steamed milk</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Biscoff Cappuccino</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cappuccino with caramelised lotus biscoff</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Signature Hot Chocolate</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Hot chocolate with hazelnut flavour</p>
+                    </div>
+                </div>
+
+                <!-- COLD COFFEE -->
+                <div class="menu-panel" data-panel="cold-coffee">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cafe Frappe</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Rich, creamy and irresistable cold coffee</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Iced Cappuccino</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with milk, chocolate and ice</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Iced Latte</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Rich espresso and cold milk over ice</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Choco Frappe</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cafe frappe with chocolate fudge</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-dark-choco">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Dark Chocolate Frappe</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Dark chocolate and frappe combined</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Iced Mocha</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with chocolate, milk and cream over ice</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Caramel Creamy Frappe</h4><span
+                                class="text-gold-accent font-bold">₹210</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cafe frappe with caramel flavour</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Irish Mocha Creamy Frappe</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cafe frappe with Irish and chocolate flavour</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Oreo Frappe</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Oreo cookies with ice cream and espresso</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mocha Hazelnut Frappe</h4><span
+                                class="text-gold-accent font-bold">₹230</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cold coffee with chocolate and hazelnut</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Choco Cookie Frappe</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Espresso with ice cream and secret cookie</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-tiramisu">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Tiramisu Frappe</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Brownie chunks with tiramisu in cold coffee</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-nutella-frappe">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Nutella Frappe</h4><span
+                                class="text-gold-accent font-bold">₹300</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Nutella blended with espresso</p>
+                    </div>
+                </div>
+
+                <!-- SHAKES -->
+                <div class="menu-panel" data-panel="shakes">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Dark Chocolate Shake</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">As chocolaty as it can get!</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Caramel Creamy Shake</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Smoothness of caramel</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mango Shake</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Classic mango shake</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Strawberry Shake</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">The strawberry shake you deserve</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Blueberry Shake</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Blueberry with vanilla ice cream</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Dark Choco Hazelnut Shake</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Chocolate shake with hazelnut</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Kit-Kat Shake</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Blended and topped with kit kat</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mango Berry Shake</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Mango and strawberry combined</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Oreo Shake</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">You want Oreo? We got Oreo</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mocha Berry Shake</h4><span
+                                class="text-gold-accent font-bold">₹230</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Chocolate and strawberry delight</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Choco Brownie Shake</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Super creamy with brownie chunks</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mango Oreo Crunch</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Mango with oreo cookie - must try!</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Biscoff Shake</h4><span
+                                class="text-gold-accent font-bold">₹270</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Biscoff cookie blended to perfection</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Nutella Shake</h4><span
+                                class="text-gold-accent font-bold">₹280</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">For the nutella lovers</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Ferrero Rocher Shake</h4><span
+                                class="text-gold-accent font-bold">₹300</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Loaded with ferrero rocher and nutella</p>
+                    </div>
+                </div>
+
+                <!-- MOJITOS/MOCKTAILS -->
+                <div class="menu-panel" data-panel="mojitos">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Masala Lemonade</h4><span
+                                class="text-gold-accent font-bold">₹160</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Tangy lemon with warm spices</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-mojito">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Virgin Mojito</h4><span
+                                class="text-gold-accent font-bold">₹170</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Mint mojito with syrup, ice and lemon</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mango Mojito</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Mango, mint and lime - perfect refresher</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Orange Blossom</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Orange blossom water and citrus juices</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Watermelon Punch</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Watermelon refreshing drink</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Blueberry Mango Mojito</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Delicious blueberry and mango combo</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cranberry Mojito</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cranberry with muddled lemon</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Pinky Lemonade</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Watermelon and lychee combination</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Minty Berry Burst</h4><span
+                                class="text-gold-accent font-bold">₹210</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Refreshing mint and berry flavours</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mystique Passion Flower</h4><span
+                                class="text-gold-accent font-bold">₹210</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Passion fruit and elderflower fusion</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Coco Hibiscus Bliss</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Hibiscus and white chocolate blend</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Orange Tango</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Sweet and sour with touch of spice</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Spicy Guava Infusion</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Guava, cucumber and chili kick</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Kiwi Mojito</h4><span
+                                class="text-gold-accent font-bold">₹360</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Refreshing mint, ice and kiwi</p>
+                    </div>
+                </div>
+
+                <!-- ICE TEA -->
+                <div class="menu-panel" data-panel="ice-tea">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Fresh Lime Soda</h4><span
+                                class="text-gold-accent font-bold">₹150</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Refreshing sweet-salty drink</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Lemon Mint Ice Tea</h4><span
+                                class="text-gold-accent font-bold">₹160</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Lemon and mint iced tea</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Peach Ice Tea</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Peach flavoured iced tea</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Strawberry Ice Tea</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Strawberry flavoured iced tea</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Watermelon Ice Tea</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Watermelon flavoured iced tea</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Blueberry Ice Tea</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Refreshing blueberry iced tea</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Red Bull Ice Tea</h4><span
+                                class="text-gold-accent font-bold">₹270</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Energizing red bull iced tea</p>
+                    </div>
+                </div>
+
+                <!-- PIZZA -->
+                <div class="menu-panel" data-panel="pizza">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Classic Margarita Pizza</h4><span
+                                class="text-gold-accent font-bold">₹310</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Homemade tomato sauce, mozzarella</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Farm Fresh Pizza</h4><span
+                                class="text-gold-accent font-bold">₹330</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Onion, tomato, capsicum and mozzarella</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-paneer-pizza">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Paneer Bhurji Pizza</h4><span
+                                class="text-gold-accent font-bold">₹400</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Spicy paneer bhurji on margarita</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Supreme Pizza</h4><span
+                                class="text-gold-accent font-bold">₹410</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Green chilli, onion, tomato, capsicum, paneer</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Tandoori Paneer Pizza</h4><span
+                                class="text-gold-accent font-bold">₹420</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cottage cheese, onion, capsicum, tandoori mayo</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Pesto Mushroom Pizza</h4><span
+                                class="text-gold-accent font-bold">₹440</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Basil pesto, mushroom, feta, cherry tomatoes</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Multi Cheese Nirmana Pizza</h4><span
+                                class="text-gold-accent font-bold">₹440</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Onion, capsicum, jalapeno, corn with cheese</p>
+                    </div>
+                </div>
+
+                <!-- SANDWICH -->
+                <div class="menu-panel" data-panel="sandwich">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Veg Grilled Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Onion, tomato and capsicum</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Veg Cheese Grilled Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹210</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Onion, tomato, capsicum and cheese</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cheese Corn Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cheese and corn in two layers</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mexican Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Bell peppers with three mayonnaise</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mushroom Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Sauteed mushroom and onion with cheese</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-club-sandwich">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Veg Club Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹260</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Lettuce, coleslaw, onion, tomato, cheese</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Supreme Corn Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹260</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Brown bread with veggies and corn</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Tandoori Paneer Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹270</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Paneer is an emotion - try it!</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">French Toast Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹280</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Sauteed vegetables in masala loaf</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Loaded Cheese & Paneer</h4><span
+                                class="text-gold-accent font-bold">₹280</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Loads of cheese, mayo, paneer in masala loaf</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Triple Cheese Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹320</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Loaded cheese between three slices</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Pesto Grilled Veg Sandwich</h4><span
+                                class="text-gold-accent font-bold">₹330</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">French loaf with grilled veg and mozzarella</p>
+                    </div>
+                </div>
+
+                <!-- PASTA -->
+                <div class="menu-panel" data-panel="pasta">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Penne Arrabiata (Red)</h4><span
+                                class="text-gold-accent font-bold">₹370</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Spicy tomato sauce, garlic and chilly flakes</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Alfredo Pasta (White)</h4><span
+                                class="text-gold-accent font-bold">₹400</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Creamy sauce with parmesan cheese</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Penne Pink Sauce</h4><span
+                                class="text-gold-accent font-bold">₹420</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Penne with silky smooth white sauce</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Penne Creamy Pesto</h4><span
+                                class="text-gold-accent font-bold">₹440</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fresh pesto, cream and parmesan</p>
+                    </div>
+                </div>
+
+                <!-- MAGGIE -->
+                <div class="menu-panel" data-panel="maggie">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Plain Maggi</h4><span
+                                class="text-gold-accent font-bold">₹160</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Simply maggie</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Masala Maggi</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Spicy masaledar maggie with vegetables</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Tandoori Maggi</h4><span
+                                class="text-gold-accent font-bold">₹180</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Tandoori sauces with maggie</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cheese Maggi</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Masala maggie loaded with cheese</p>
+                    </div>
+                </div>
+
+                <!-- NACHOS -->
+                <div class="menu-panel" data-panel="nachos">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Plain Nachos</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Crispy nachos with salsa dip</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cheese Nachos</h4><span
+                                class="text-gold-accent font-bold">₹270</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Chef special nachos with cheese and bell peppers</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Baked Nachos</h4><span
+                                class="text-gold-accent font-bold">₹300</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Nachos with cheese, baked beans, olives</p>
+                    </div>
+                </div>
+
+                <!-- LOADED FRIES -->
+                <div class="menu-panel" data-panel="fries">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">French Fries</h4><span
+                                class="text-gold-accent font-bold">₹170</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fries before guys kind</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Masala Fries</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">A spicy treat by chef special</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-peri-fries">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Peri Peri Fries</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fries with peri peri spices</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cheese Stick</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fried cheese sticks with salsa</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Barbeque Fries</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fries with tandoori and chilli dressing</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cheese Jalapeno Fries</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fries with cheese and jalapeno</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cheesy Salsa Fries</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fries with cheese and salsa</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mexican Fries</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fries with cheese, mayo and jalapeno</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Nachos Fries</h4><span
+                                class="text-gold-accent font-bold">₹260</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fries and nachos combo with mayo</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Baked Fries</h4><span
+                                class="text-gold-accent font-bold">₹280</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">French fries baked with cheese sauce</p>
+                    </div>
+                </div>
+
+                <!-- POTATO SHOTS -->
+                <div class="menu-panel" data-panel="potato">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Pizza Samosa</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Melty cheese in pizza style samosas</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Potato Wedges</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Skin-on wedges with special seasoning</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Potato Cheese Shots</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Potatoes, cheese and herbs in breadcrumbs</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Potato Crispers</h4><span
+                                class="text-gold-accent font-bold">₹250</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">V-shaped crispers with peri-peri and mayo</p>
+                    </div>
+                </div>
+
+                <!-- GARLIC BREAD -->
+                <div class="menu-panel" data-panel="garlic-bread">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Cheese Garlic Bread</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cheese blend, garlic and butter</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Chili Corn Garlic Bread</h4><span
+                                class="text-gold-accent font-bold">₹250</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Cheese blend, corn, green chili</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">OTC Garlic Bread</h4><span
+                                class="text-gold-accent font-bold">₹300</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Onion, tomato, capsicum with spices</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Masala Pull-A-Part Garlic Bread</h4><span
+                                class="text-gold-accent font-bold">₹400</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fresh baked with indian masala and cheese</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Pesto Pull-A-Part Garlic Bread</h4><span
+                                class="text-gold-accent font-bold">₹440</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Fresh baked with pesto and cheese</p>
+                    </div>
+                </div>
+
+                <!-- WRAPS -->
+                <div class="menu-panel" data-panel="wraps">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Aloo Tikki Wrap</h4><span
+                                class="text-gold-accent font-bold">₹200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Twisty aloo filling with veggies</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Mexican Wrap</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Tortilla with Mexican patty and salsa</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Paneer Tikka Wrap</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Paneer tikka with tandoori dressing</p>
+                    </div>
+                </div>
+
+                <!-- CHEF SPECIAL -->
+                <div class="menu-panel" data-panel="chef-special">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Spicy Hot Dog</h4><span
+                                class="text-gold-accent font-bold">₹240</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Spicy paneer bhurji on hot dog bread</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Paneer Bhurji Pao</h4><span
+                                class="text-gold-accent font-bold">₹270</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Spicy paneer bhurji with butter pao</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl" data-testid="menu-item-fondue">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Pao Bhaji Fondue</h4><span
+                                class="text-gold-accent font-bold">₹350</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Bell pepper with indian spices and cheese</p>
+                    </div>
+                </div>
+
+                <!-- DESSERTS -->
+                <div class="menu-panel" data-panel="desserts">
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Hot Fudge With Brownie</h4><span
+                                class="text-gold-accent font-bold">₹190</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Brownie topped with melted hot chocolate</p>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-semibold text-white">Oreo Brownie Sundae</h4><span
+                                class="text-gold-accent font-bold">₹220</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mt-1">Brownie with oreo, chocolate sauce and ice cream</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 px-4" data-testid="gallery-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text" data-testid="text-gallery-title">
+                Our Gallery</h2>
+            <p class="text-gray-400 text-center mb-12">Moments captured at Love Over Coffee</p>
+
+            <div class="masonry-grid">
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-1">
+                    <img src="/gallery/1.webp" alt="Gallery Image 1"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-2">
+                    <img src="/gallery/2.webp" alt="Gallery Image 2"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-3">
+                    <img src="/gallery/3.webp" alt="Gallery Image 3"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-4">
+                    <img src="/gallery/4.jpg" alt="Gallery Image 4"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-5">
+                    <img src="/gallery/5.jpg" alt="Gallery Image 5"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-6">
+                    <img src="/gallery/6.jpg" alt="Gallery Image 6"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-7">
+                    <img src="/gallery/7.webp" alt="Gallery Image 7"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-8">
+                    <img src="/gallery/8.jpg" alt="Gallery Image 8"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-9">
+                    <img src="/gallery/9.webp" alt="Gallery Image 9"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-10">
+                    <img src="/gallery/10.jpg" alt="Gallery Image 10"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-11">
+                    <img src="/gallery/11.jpg" alt="Gallery Image 11"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-12">
+                    <img src="/gallery/12.webp" alt="Gallery Image 12"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-13">
+                    <img src="/gallery/13.webp" alt="Gallery Image 13"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-14">
+                    <img src="/gallery/14.webp" alt="Gallery Image 14"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-15">
+                    <img src="/gallery/15.webp" alt="Gallery Image 15"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-16">
+                    <img src="/gallery/16.webp" alt="Gallery Image 16"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-17">
+                    <img src="/gallery/17.webp" alt="Gallery Image 17"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-18">
+                    <img src="/gallery/18.webp" alt="Gallery Image 18"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-19">
+                    <img src="/gallery/19.webp" alt="Gallery Image 19"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-20">
+                    <img src="/gallery/20.webp" alt="Gallery Image 20"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-21">
+                    <img src="/gallery/21.webp" alt="Gallery Image 21"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-22">
+                    <img src="/gallery/22.webp" alt="Gallery Image 22"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-23">
+                    <img src="/gallery/23.webp" alt="Gallery Image 23"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-24">
+                    <img src="/gallery/24.webp" alt="Gallery Image 24"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-25">
+                    <img src="/gallery/25.webp" alt="Gallery Image 25"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-26">
+                    <img src="/gallery/26.webp" alt="Gallery Image 26"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-27">
+                    <img src="/gallery/27.webp" alt="Gallery Image 27"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-28">
+                    <img src="/gallery/28.webp" alt="Gallery Image 28"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-29">
+                    <img src="/gallery/29.webp" alt="Gallery Image 29"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-30">
+                    <img src="/gallery/30.webp" alt="Gallery Image 30"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-31">
+                    <img src="/gallery/31.webp" alt="Gallery Image 31"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-32">
+                    <img src="/gallery/32.webp" alt="Gallery Image 32"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-33">
+                    <img src="/gallery/33.webp" alt="Gallery Image 33"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-34">
+                    <img src="/gallery/34.webp" alt="Gallery Image 34"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-35">
+                    <img src="/gallery/35.webp" alt="Gallery Image 35"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-36">
+                    <img src="/gallery/36.webp" alt="Gallery Image 36"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-37">
+                    <img src="/gallery/37.webp" alt="Gallery Image 37"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-38">
+                    <img src="/gallery/38.webp" alt="Gallery Image 38"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-39">
+                    <img src="/gallery/39.webp" alt="Gallery Image 39"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-40">
+                    <img src="/gallery/40.webp" alt="Gallery Image 40"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-41">
+                    <img src="/gallery/41.webp" alt="Gallery Image 41"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-42">
+                    <img src="/gallery/42.webp" alt="Gallery Image 42"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-43">
+                    <img src="/gallery/43.webp" alt="Gallery Image 43"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-44">
+                    <img src="/gallery/44.webp" alt="Gallery Image 44"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-45">
+                    <img src="/gallery/45.webp" alt="Gallery Image 45"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-46">
+                    <img src="/gallery/46.webp" alt="Gallery Image 46"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-47">
+                    <img src="/gallery/47.webp" alt="Gallery Image 47"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-48">
+                    <img src="/gallery/48.webp" alt="Gallery Image 48"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-49">
+                    <img src="/gallery/49.webp" alt="Gallery Image 49"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-50">
+                    <img src="/gallery/50.jpg" alt="Gallery Image 50"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="masonry-item rounded-xl overflow-hidden" data-testid="gallery-item-51">
+                    <img src="/gallery/51.webp" alt="Gallery Image 51"
+                        class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="py-20 px-4" data-testid="videos-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text" data-testid="text-videos-title">Experience the Vibe</h2>
+            <p class="text-gray-400 text-center mb-12">Watch our journey unfold</p>
+            
+            <div class="swiper videos-swiper">
+                <div class="swiper-wrapper">
+                    
+                    <!-- Video 1 -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl overflow-hidden" data-testid="video-item-1">
+                            <video class="w-full aspect-video object-cover" controls playsinline poster="">
+                                <source src="/videos/1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="p-3 text-center">
+                                <p class="text-gray-300 font-medium">Cafe Vibes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video 2 -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl overflow-hidden" data-testid="video-item-2">
+                            <video class="w-full aspect-video object-cover" controls playsinline poster="">
+                                <source src="/videos/2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="p-3 text-center">
+                                <p class="text-gray-300 font-medium">Coffee Making Art</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video 3 -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl overflow-hidden" data-testid="video-item-3">
+                            <video class="w-full aspect-video object-cover" controls playsinline poster="">
+                                <source src="/videos/3.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="p-3 text-center">
+                                <p class="text-gray-300 font-medium">Food Preparation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video 4 -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl overflow-hidden" data-testid="video-item-4">
+                            <video class="w-full aspect-video object-cover" controls playsinline poster="">
+                                <source src="/videos/4.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="p-3 text-center">
+                                <p class="text-gray-300 font-medium">Customer Experience</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video 5 -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl overflow-hidden" data-testid="video-item-5">
+                            <video class="w-full aspect-video object-cover" controls playsinline poster="">
+                                <source src="/videos/5.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="p-3 text-center">
+                                <p class="text-gray-300 font-medium">Special Moments</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination mt-8"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 px-4" data-testid="reviews-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text" data-testid="text-reviews-title">
+                What People Say</h2>
+            <p class="text-gray-400 text-center mb-12">Love from our customers</p>
+
+            <div class="swiper reviews-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Review 1: Riya -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl p-8 text-center" data-testid="card-review-riya">
+                            <div
+                                class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-neon-purple">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+                                    alt="Riya" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex justify-center gap-1 mb-4">
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                            </div>
+                            <p class="text-gray-300 text-lg italic mb-4" data-testid="text-review-riya">"Rich aroma,
+                                smooth taste. Best coffee experience."</p>
+                            <h4 class="text-xl font-semibold text-white">Riya</h4>
+                        </div>
+                    </div>
+
+                    <!-- Review 2: Aarav -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl p-8 text-center" data-testid="card-review-aarav">
+                            <div
+                                class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-neon-purple">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+                                    alt="Aarav" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex justify-center gap-1 mb-4">
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                            </div>
+                            <p class="text-gray-300 text-lg italic mb-4" data-testid="text-review-aarav">"Amazing
+                                ambiance and quick service."</p>
+                            <h4 class="text-xl font-semibold text-white">Aarav</h4>
+                        </div>
+                    </div>
+
+                    <!-- Review 3: Devansh -->
+                    <div class="swiper-slide">
+                        <div class="glass-card rounded-2xl p-8 text-center" data-testid="card-review-devansh">
+                            <div
+                                class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-neon-purple">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+                                    alt="Devansh" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex justify-center gap-1 mb-4">
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gold-accent fill-gold-accent"></i>
+                            </div>
+                            <p class="text-gray-300 text-lg italic mb-4" data-testid="text-review-devansh">"Indore's
+                                most aesthetic hidden gem."</p>
+                            <h4 class="text-xl font-semibold text-white">Devansh</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="py-20 px-4" data-testid="location-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 gradient-text" data-testid="text-location-title">
+                Find Us</h2>
+            <p class="text-gray-400 text-center mb-12">Visit us for an unforgettable experience</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Map -->
+                <div class="glass-card rounded-2xl overflow-hidden h-80 lg:h-96" data-testid="map-container">
+                    <div id="map" class="w-full h-full"></div>
+                </div>
+
+                <!-- Info -->
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-center">
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4" data-testid="info-address">
+                            <div
+                                class="w-12 h-12 rounded-full bg-neon-purple/20 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-neon-purple"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-1">Address</h4>
+                                <p class="text-gray-400">PLOT NO 11, Scheme No 51, Indore, Madhya Pradesh</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4" data-testid="info-phone">
+                            <div
+                                class="w-12 h-12 rounded-full bg-gold-accent/20 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6 text-gold-accent"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-1">Phone</h4>
+                                <p class="text-gray-400">093296 97769</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4" data-testid="info-hours">
+                            <div
+                                class="w-12 h-12 rounded-full bg-mint-green/20 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="clock" class="w-6 h-6 text-mint-green"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold mb-1">Hours</h4>
+                                <p class="text-gray-400">8 AM - 11 PM (All Days)</p>
+                            </div>
+                        </div>
+
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=22.7244,75.8456" target="_blank"
+                            class="inline-flex items-center gap-2 bg-neon-purple hover:bg-neon-purple/80 text-white px-6 py-3 rounded-full font-medium transition-colors"
+                            data-testid="button-get-directions">
+                            <i data-lucide="navigation" class="w-5 h-5"></i>
+                            Get Directions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 border-t border-white/10" data-testid="footer">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="gradient-text font-bold text-xl mb-2">Love Over Coffee</p>
+            <p class="text-gray-500 text-sm">Made with love in Indore</p>
+        </div>
+    </footer>
+
+    <!-- Maggie Chat Drawer -->
+    <div id="maggieDrawer" class="maggie-drawer fixed top-0 right-0 w-full md:w-96 h-full z-50 glass"
+        data-testid="maggie-drawer">
+        <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-purple to-pink-500 flex items-center justify-center">
+                        <span class="text-lg">✨</span>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">Maggie</h3>
+                        <p class="text-xs text-gray-400">Your Coffee Assistant</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="muteToggle" class="p-2 rounded-full hover:bg-white/10 transition-colors"
+                        data-testid="button-mute-toggle">
+                        <i data-lucide="volume-2" class="w-5 h-5" id="volumeIcon"></i>
+                    </button>
+                    <button id="closeDrawer" class="p-2 rounded-full hover:bg-white/10 transition-colors"
+                        data-testid="button-close-chat">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar"
+                data-testid="chat-messages">
+                <!-- Welcome message -->
+                <div class="chat-bubble-maggie p-4 max-w-[85%]">
+                    <p>Hey there! I'm Maggie, your coffee bestie. Ask me about our menu, prices, or just tell me how
+                        you're feeling and I'll suggest the perfect drink!</p>
+                </div>
+            </div>
+
+            <!-- Input -->
+            <div class="p-4 border-t border-white/10">
+                <div class="flex gap-2">
+                    <input type="text" id="chatInput" placeholder="Type your message..."
+                        class="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-neon-purple transition-colors"
+                        data-testid="input-chat-message">
+                    <button id="sendMessage"
+                        class="w-12 h-12 rounded-full bg-neon-purple hover:bg-neon-purple/80 flex items-center justify-center transition-colors"
+                        data-testid="button-send-message">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity"
+        data-testid="overlay"></div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // ===========================================
+        // MENU TABS FUNCTIONALITY
+        // ===========================================
+        document.querySelectorAll('.menu-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active from all tabs
+                document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+                // Add active to clicked tab
+                tab.classList.add('active');
+
+                // Hide all panels
+                document.querySelectorAll('.menu-panel').forEach(panel => panel.classList.remove('active'));
+                // Show corresponding panel
+                const category = tab.dataset.category;
+                const panel = document.querySelector(`.menu-panel[data-panel="${category}"]`);
+                if (panel) panel.classList.add('active');
+            });
+        });
+
+        // ===========================================
+        // MENU DATABASE (100% LOCAL - NO API CALLS)
+        // ===========================================
+        const MENU_DB = {
+            // ===== HOT COFFEE (Without Milk) =====
+            'americano': { name: 'Americano', price: 150, category: 'Hot Coffee', desc: 'Espresso shot brewed with hot water' },
+            'espresso': { name: 'Espresso', price: 110, category: 'Hot Coffee', desc: 'Full flavoured concentrated foam of coffee' },
+            'iced americano': { name: 'Iced Americano', price: 170, category: 'Hot Coffee', desc: 'Espresso shot combined with water and chilled with ice' },
+            'irish americano': { name: 'Irish Americano', price: 180, category: 'Hot Coffee', desc: 'Espresso shot with hot water mixed with Irish syrup' },
+
+            // ===== HOT COFFEE (With Milk) =====
+            'biscoff cappuccino': { name: 'Biscoff Cappuccino', price: 190, category: 'Hot Coffee', desc: 'Cappuccino with caramelised taste of lotus biscoff' },
+            'cafe latte': { name: 'Cafe Latte', price: 170, category: 'Hot Coffee', desc: 'Espresso with steamed milk and a small layer of foam' },
+            'latte': { name: 'Cafe Latte', price: 170, category: 'Hot Coffee', desc: 'Espresso with steamed milk and a small layer of foam' },
+            'cafe mocha': { name: 'Cafe Mocha', price: 190, category: 'Hot Coffee', desc: 'Rich espresso with chocolate sauce and steamed milk' },
+            'mocha': { name: 'Cafe Mocha', price: 190, category: 'Hot Coffee', desc: 'Rich espresso with chocolate sauce and steamed milk' },
+            'cappuccino': { name: 'Cappuccino', price: 160, category: 'Hot Coffee', desc: 'Espresso with steamed milk and foam' },
+            'flat white': { name: 'Flat White', price: 170, category: 'Hot Coffee', desc: 'Espresso shot with steamed milk and thin micro foam' },
+            'hot chocolate': { name: 'Hot Chocolate', price: 180, category: 'Hot Coffee', desc: 'Blend of dark chocolate with hot milk' },
+            'signature hot chocolate': { name: 'Signature Hot Chocolate', price: 200, category: 'Hot Coffee', desc: 'Hot chocolate with hazelnut flavour' },
+
+            // ===== SIGNATURE DRINKS =====
+            'cold brew': { name: 'Cold Brew', price: 190, category: 'Signature', desc: 'Black - a delicate & complete drink' },
+            'condensed latte': { name: 'Condensed Latte', price: 200, category: 'Signature', desc: 'Espresso with condensed milk' },
+            'cranberry cold brew': { name: 'Cranberry Cold Brew', price: 240, category: 'Signature', desc: 'Cranberry with cold brew' },
+            'cranberry espresso': { name: 'Cranberry Espresso', price: 170, category: 'Signature', desc: 'Cranberry with espresso' },
+            'orange cold brew': { name: 'Orange Cold Brew', price: 240, category: 'Signature', desc: 'Orange with cold brew' },
+            'orange espresso': { name: 'Orange Espresso', price: 170, category: 'Signature', desc: 'Orange with espresso' },
+            'vietnamese': { name: 'Vietnamese Coffee', price: 220, category: 'Signature', desc: 'Espresso, condensed milk, ice' },
+            'vietnamese coffee': { name: 'Vietnamese Coffee', price: 220, category: 'Signature', desc: 'Espresso, condensed milk, ice' },
+
+            // ===== ICE TEA =====
+            'blueberry ice tea': { name: 'Blueberry Ice Tea', price: 200, category: 'Ice Tea', desc: 'Refreshing blueberry flavoured iced tea' },
+            'fresh lime soda': { name: 'Fresh Lime Soda', price: 150, category: 'Ice Tea', desc: 'Refreshing water based sweet-salty drink' },
+            'lime soda': { name: 'Fresh Lime Soda', price: 150, category: 'Ice Tea', desc: 'Refreshing water based sweet-salty drink' },
+            'lemon mint ice tea': { name: 'Lemon Mint Ice Tea', price: 160, category: 'Ice Tea', desc: 'Lemon and mint iced tea' },
+            'peach ice tea': { name: 'Peach Ice Tea', price: 180, category: 'Ice Tea', desc: 'Peach flavoured iced tea' },
+            'red bull ice tea': { name: 'Red Bull Ice Tea', price: 270, category: 'Ice Tea', desc: 'Energizing red bull iced tea' },
+            'strawberry ice tea': { name: 'Strawberry Ice Tea', price: 180, category: 'Ice Tea', desc: 'Strawberry flavoured iced tea' },
+            'watermelon ice tea': { name: 'Watermelon Ice Tea', price: 180, category: 'Ice Tea', desc: 'Watermelon flavoured iced tea' },
+            'ice tea': { name: 'Lemon Mint Ice Tea', price: 160, category: 'Ice Tea', desc: 'Lemon and mint iced tea' },
+
+            // ===== COLD COFFEE =====
+            'cafe frappe': { name: 'Cafe Frappe', price: 190, category: 'Cold Coffee', desc: 'Rich, creamy and irresistable cold coffee' },
+            'cold coffee': { name: 'Cafe Frappe', price: 190, category: 'Cold Coffee', desc: 'Rich, creamy and irresistable cold coffee' },
+            'frappe': { name: 'Cafe Frappe', price: 190, category: 'Cold Coffee', desc: 'Rich, creamy and irresistable cold coffee' },
+            'caramel creamy frappe': { name: 'Caramel Creamy Frappe', price: 210, category: 'Cold Coffee', desc: 'Cafe frappe with caramel flavour' },
+            'caramel frappe': { name: 'Caramel Creamy Frappe', price: 210, category: 'Cold Coffee', desc: 'Cafe frappe with caramel flavour' },
+            'choco cookie frappe': { name: 'Choco Cookie Frappe', price: 240, category: 'Cold Coffee', desc: 'Espresso blended with ice cream and secret cookie' },
+            'choco frappe': { name: 'Choco Frappe', price: 200, category: 'Cold Coffee', desc: 'Cafe frappe with chocolate fudge' },
+            'cookie crunchy frappe': { name: 'Cookie Crunchy Creamy Frappe', price: 240, category: 'Cold Coffee', desc: 'Hazelnut and caramel with cookie chunks' },
+            'dark chocolate frappe': { name: 'Dark Chocolate Frappe', price: 200, category: 'Cold Coffee', desc: 'Dark chocolate and frappe combined' },
+            'dark choco frappe': { name: 'Dark Chocolate Frappe', price: 200, category: 'Cold Coffee', desc: 'Dark chocolate and frappe combined' },
+            'iced cappuccino': { name: 'Iced Cappuccino', price: 190, category: 'Cold Coffee', desc: 'Espresso with milk, chocolate and ice' },
+            'iced latte': { name: 'Iced Latte', price: 190, category: 'Cold Coffee', desc: 'Rich espresso and cold milk over ice' },
+            'iced mocha': { name: 'Iced Mocha', price: 200, category: 'Cold Coffee', desc: 'Espresso with chocolate, milk and cream over ice' },
+            'irish mocha frappe': { name: 'Irish Mocha Creamy Frappe', price: 220, category: 'Cold Coffee', desc: 'Cafe frappe with Irish and chocolate flavour' },
+            'mocha hazelnut frappe': { name: 'Mocha Hazelnut Frappe', price: 230, category: 'Cold Coffee', desc: 'Cold coffee blended with chocolate and hazelnut' },
+            'nutella frappe': { name: 'Nutella Frappe', price: 300, category: 'Cold Coffee', desc: 'Nutella blended with espresso' },
+            'oreo frappe': { name: 'Oreo Frappe', price: 220, category: 'Cold Coffee', desc: 'Oreo cookies blended with ice cream and espresso' },
+            'tiramisu frappe': { name: 'Tiramisu Frappe', price: 240, category: 'Cold Coffee', desc: 'Brownie chunks with tiramisu flavour in cold coffee' },
+
+            // ===== MOCKTAILS/MOJITO =====
+            'orange tango': { name: 'Orange Tango', price: 240, category: 'Mocktails', desc: 'Sweet and sour flair with touch of spice' },
+            'blueberry mango mojito': { name: 'Blueberry Mango Mojito', price: 200, category: 'Mocktails', desc: 'Delicious combination of blueberry and mango' },
+            'coco hibiscus': { name: 'Coco Hibiscus Bliss', price: 220, category: 'Mocktails', desc: 'Hibiscus and white chocolate blend' },
+            'cranberry mojito': { name: 'Cranberry Mojito', price: 200, category: 'Mocktails', desc: 'Cranberry with muddled lemon and ice' },
+            'kiwi mojito': { name: 'Kiwi Mojito', price: 360, category: 'Mocktails', desc: 'Refreshing mint, ice and kiwi' },
+            'mango mojito': { name: 'Mango Mojito', price: 180, category: 'Mocktails', desc: 'Mango, mint and lime - perfect refresher' },
+            'masala lemonade': { name: 'Masala Lemonade', price: 160, category: 'Mocktails', desc: 'Tangy lemon with warm spices' },
+            'minty berry burst': { name: 'Minty Berry Burst', price: 210, category: 'Mocktails', desc: 'Refreshing mint and berry flavours' },
+            'mystique passion': { name: 'Mystique Passion Flower', price: 210, category: 'Mocktails', desc: 'Passion fruit and elderflower fusion' },
+            'orange blossom': { name: 'Orange Blossom', price: 180, category: 'Mocktails', desc: 'Orange blossom water and citrus juices' },
+            'pinky lemonade': { name: 'Pinky Lemonade', price: 200, category: 'Mocktails', desc: 'Watermelon and lychee combination' },
+            'spicy guava': { name: 'Spicy Guava Infusion', price: 240, category: 'Mocktails', desc: 'Guava, cucumber and spicy chili kick' },
+            'virgin mojito': { name: 'Virgin Mojito', price: 170, category: 'Mocktails', desc: 'Mint mojito with syrup, ice, lemon and mint' },
+            'mojito': { name: 'Virgin Mojito', price: 170, category: 'Mocktails', desc: 'Mint mojito with syrup, ice, lemon and mint' },
+            'watermelon punch': { name: 'Watermelon Punch', price: 180, category: 'Mocktails', desc: 'Watermelon flavour refreshing drink' },
+
+            // ===== SHAKES =====
+            'biscoff shake': { name: 'Biscoff Shake', price: 270, category: 'Shake', desc: 'Biscoff cookie blended to perfection' },
+            'blueberry shake': { name: 'Blueberry Shake', price: 220, category: 'Shake', desc: 'Blueberry blended with vanilla ice cream' },
+            'caramel creamy shake': { name: 'Caramel Creamy Shake', price: 200, category: 'Shake', desc: 'Smoothness of caramel' },
+            'caramel shake': { name: 'Caramel Creamy Shake', price: 200, category: 'Shake', desc: 'Smoothness of caramel' },
+            'choco brownie shake': { name: 'Choco Brownie Shake', price: 240, category: 'Shake', desc: 'Super creamy, chocolaty with brownie chunks' },
+            'brownie shake': { name: 'Choco Brownie Shake', price: 240, category: 'Shake', desc: 'Super creamy, chocolaty with brownie chunks' },
+            'dark chocolate hazelnut shake': { name: 'Dark Chocolate Hazelnut Shake', price: 220, category: 'Shake', desc: 'Chocolate shake with hazelnut' },
+            'dark chocolate shake': { name: 'Dark Chocolate Shake', price: 190, category: 'Shake', desc: 'As chocolaty as it can get' },
+            'chocolate shake': { name: 'Dark Chocolate Shake', price: 190, category: 'Shake', desc: 'As chocolaty as it can get' },
+            'ferrero rocher shake': { name: 'Ferrero Rocher Shake', price: 300, category: 'Shake', desc: 'Exclusive shake with ferrero rocher and nutella' },
+            'ferrero shake': { name: 'Ferrero Rocher Shake', price: 300, category: 'Shake', desc: 'Exclusive shake with ferrero rocher and nutella' },
+            'kitkat shake': { name: 'Kit-Kat Shake', price: 220, category: 'Shake', desc: 'Blended and topped with kit kat' },
+            'kit kat shake': { name: 'Kit-Kat Shake', price: 220, category: 'Shake', desc: 'Blended and topped with kit kat' },
+            'mango berry shake': { name: 'Mango Berry Shake', price: 220, category: 'Shake', desc: 'Mango and strawberry combined' },
+            'mango oreo crunch': { name: 'Mango Oreo Crunch', price: 240, category: 'Shake', desc: 'Mango with oreo cookie - must try' },
+            'mango shake': { name: 'Mango Shake', price: 200, category: 'Shake', desc: 'Classic mango shake' },
+            'mocha berry shake': { name: 'Mocha Berry Shake', price: 230, category: 'Shake', desc: 'Chocolate and strawberry delight' },
+            'nutella shake': { name: 'Nutella Shake', price: 280, category: 'Shake', desc: 'For the nutella lovers' },
+            'oreo shake': { name: 'Oreo Shake', price: 220, category: 'Shake', desc: 'You want Oreo? We got Oreo' },
+            'strawberry shake': { name: 'Strawberry Shake', price: 200, category: 'Shake', desc: 'The strawberry shake you deserve' },
+            'shake': { name: 'Oreo Shake', price: 220, category: 'Shake', desc: 'You want Oreo? We got Oreo' },
+
+            // ===== DESSERTS =====
+            'hot fudge brownie': { name: 'Hot Fudge With Brownie', price: 190, category: 'Desserts', desc: 'Brownie topped with melted hot chocolate' },
+            'brownie': { name: 'Hot Fudge With Brownie', price: 190, category: 'Desserts', desc: 'Brownie topped with melted hot chocolate' },
+            'oreo brownie sundae': { name: 'Oreo Brownie Sundae', price: 220, category: 'Desserts', desc: 'Brownie with oreo, chocolate sauce and ice cream' },
+            'sundae': { name: 'Oreo Brownie Sundae', price: 220, category: 'Desserts', desc: 'Brownie with oreo, chocolate sauce and ice cream' },
+
+            // ===== SANDWICHES =====
+            'french toast sandwich': { name: 'French Toast Sandwich', price: 280, category: 'Sandwich', desc: 'French toast with sauteed vegetables and masala loaf' },
+            'french toast': { name: 'French Toast Sandwich', price: 280, category: 'Sandwich', desc: 'French toast with sauteed vegetables and masala loaf' },
+            'pesto grilled veg sandwich': { name: 'Pesto Grilled Veg Sandwich', price: 330, category: 'Sandwich', desc: 'French loaf with grilled veg, mozzarella and fries' },
+            'pesto sandwich': { name: 'Pesto Grilled Veg Sandwich', price: 330, category: 'Sandwich', desc: 'French loaf with grilled veg, mozzarella and fries' },
+            'veg club sandwich': { name: 'Veg Club Sandwich', price: 260, category: 'Sandwich', desc: 'Lettuce, coleslaw, onion, tomato, cucumber, cheese' },
+            'club sandwich': { name: 'Veg Club Sandwich', price: 260, category: 'Sandwich', desc: 'Lettuce, coleslaw, onion, tomato, cucumber, cheese' },
+            'veg grilled sandwich': { name: 'Veg Grilled Sandwich', price: 200, category: 'Sandwich', desc: 'Onion, tomato and capsicum' },
+            'grilled sandwich': { name: 'Veg Grilled Sandwich', price: 200, category: 'Sandwich', desc: 'Onion, tomato and capsicum' },
+            'veg cheese grilled sandwich': { name: 'Veg Cheese Grilled Sandwich', price: 210, category: 'Sandwich', desc: 'Onion, tomato, capsicum and cheese grilled to perfection' },
+            'cheese grilled sandwich': { name: 'Veg Cheese Grilled Sandwich', price: 210, category: 'Sandwich', desc: 'Onion, tomato, capsicum and cheese grilled to perfection' },
+            'cheese corn sandwich': { name: 'Cheese Corn Sandwich', price: 220, category: 'Sandwich', desc: 'Cheese and corn in two layers' },
+            'corn sandwich': { name: 'Cheese Corn Sandwich', price: 220, category: 'Sandwich', desc: 'Cheese and corn in two layers' },
+            'mexican sandwich': { name: 'Mexican Sandwich', price: 220, category: 'Sandwich', desc: 'Bell peppers and onions with three different mayonnaise' },
+            'mushroom sandwich': { name: 'Mushroom Sandwich', price: 220, category: 'Sandwich', desc: 'Sauteed mushroom and onion with cheese dressing' },
+            'loaded cheese paneer sandwich': { name: 'Loaded Cheese & Paneer Sandwich', price: 280, category: 'Sandwich', desc: 'Loads of cheese, mayo, paneer and onion in masala loaf' },
+            'paneer sandwich': { name: 'Loaded Cheese & Paneer Sandwich', price: 280, category: 'Sandwich', desc: 'Loads of cheese, mayo, paneer and onion in masala loaf' },
+            'supreme corn sandwich': { name: 'Supreme Corn Sandwich', price: 260, category: 'Sandwich', desc: 'Brown bread with onion, tomato, capsicum, corn and cheese' },
+            'tandoori paneer sandwich': { name: 'Tandoori Paneer Sandwich', price: 270, category: 'Sandwich', desc: 'Paneer is an emotion - try it!' },
+            'triple cheese sandwich': { name: 'Triple Cheese Sandwich', price: 320, category: 'Sandwich', desc: 'Loaded with cheese between three slices of bread' },
+            'sandwich': { name: 'Veg Grilled Sandwich', price: 200, category: 'Sandwich', desc: 'Onion, tomato and capsicum' },
+
+            // ===== PIZZA =====
+            'classic margarita pizza': { name: 'Classic Margarita Pizza', price: 310, category: 'Pizza', desc: 'Homemade tomato sauce, mozzarella and EVO' },
+            'margarita pizza': { name: 'Classic Margarita Pizza', price: 310, category: 'Pizza', desc: 'Homemade tomato sauce, mozzarella and EVO' },
+            'margarita': { name: 'Classic Margarita Pizza', price: 310, category: 'Pizza', desc: 'Homemade tomato sauce, mozzarella and EVO' },
+            'paneer bhurji pizza': { name: 'Paneer Bhurji Pizza', price: 400, category: 'Pizza', desc: 'Spicy paneer bhurji on traditional margarita' },
+            'paneer pizza': { name: 'Paneer Bhurji Pizza', price: 400, category: 'Pizza', desc: 'Spicy paneer bhurji on traditional margarita' },
+            'pesto mushroom pizza': { name: 'Pesto Mushroom Pizza', price: 440, category: 'Pizza', desc: 'Basil pesto, mushroom, feta, cherry tomatoes, parmesan' },
+            'mushroom pizza': { name: 'Pesto Mushroom Pizza', price: 440, category: 'Pizza', desc: 'Basil pesto, mushroom, feta, cherry tomatoes, parmesan' },
+            'tandoori paneer pizza': { name: 'Tandoori Paneer Pizza', price: 420, category: 'Pizza', desc: 'Cottage cheese, onion, capsicum with tandoori mayo' },
+            'farm fresh pizza': { name: 'Farm Fresh Pizza', price: 330, category: 'Pizza', desc: 'Onion, tomato, capsicum and mozzarella' },
+            'farm fresh': { name: 'Farm Fresh Pizza', price: 330, category: 'Pizza', desc: 'Onion, tomato, capsicum and mozzarella' },
+            'supreme pizza': { name: 'Supreme Pizza', price: 410, category: 'Pizza', desc: 'Green chilli, onion, tomato, capsicum and paneer' },
+            'multi cheese pizza': { name: 'Multi Cheese Nirmana Pizza', price: 440, category: 'Pizza', desc: 'Onion, capsicum, jalapeno, corn with blended cheese' },
+            'pizza': { name: 'Farm Fresh Pizza', price: 330, category: 'Pizza', desc: 'Onion, tomato, capsicum and mozzarella' },
+
+            // ===== NACHOS =====
+            'baked nachos': { name: 'Baked Nachos', price: 300, category: 'Nachos', desc: 'Nachos with cheese, baked beans, olives and veggies' },
+            'cheese nachos': { name: 'Cheese Nachos', price: 270, category: 'Nachos', desc: 'Chefs special nachos with cheese and bell peppers' },
+            'plain nachos': { name: 'Plain Nachos', price: 190, category: 'Nachos', desc: 'Crispy nachos chips with salsa dip' },
+            'nachos': { name: 'Cheese Nachos', price: 270, category: 'Nachos', desc: 'Chefs special nachos with cheese and bell peppers' },
+
+            // ===== MAGGIE =====
+            'plain maggi': { name: 'Plain Maggi', price: 160, category: 'Maggie', desc: 'Simply maggie' },
+            'maggi': { name: 'Plain Maggi', price: 160, category: 'Maggie', desc: 'Simply maggie' },
+            'masala maggi': { name: 'Masala Maggi', price: 180, category: 'Maggie', desc: 'Spicy masaledar maggie with mixed vegetables' },
+            'tandoori maggi': { name: 'Tandoori Maggi', price: 180, category: 'Maggie', desc: 'Tandoori sauces with maggie' },
+            'cheese maggi': { name: 'Cheese Maggi', price: 190, category: 'Maggie', desc: 'Masala maggie loaded with cheese' },
+            'maggie': { name: 'Plain Maggi', price: 160, category: 'Maggie', desc: 'Simply maggie' },
+
+            // ===== PASTA =====
+            'alfredo pasta': { name: 'Alfredo Pasta (White)', price: 400, category: 'Pasta', desc: 'Creamy sauce with parmesan cheese and bread' },
+            'white pasta': { name: 'Alfredo Pasta (White)', price: 400, category: 'Pasta', desc: 'Creamy sauce with parmesan cheese and bread' },
+            'penne arrabiata': { name: 'Penne Arrabiata (Red)', price: 370, category: 'Pasta', desc: 'Spicy tomato sauce, garlic and chilly flakes' },
+            'red pasta': { name: 'Penne Arrabiata (Red)', price: 370, category: 'Pasta', desc: 'Spicy tomato sauce, garlic and chilly flakes' },
+            'arrabiata': { name: 'Penne Arrabiata (Red)', price: 370, category: 'Pasta', desc: 'Spicy tomato sauce, garlic and chilly flakes' },
+            'penne creamy pesto': { name: 'Penne Creamy Pesto', price: 440, category: 'Pasta', desc: 'Fresh pesto, cream and parmesan cheese' },
+            'pesto pasta': { name: 'Penne Creamy Pesto', price: 440, category: 'Pasta', desc: 'Fresh pesto, cream and parmesan cheese' },
+            'penne pink sauce': { name: 'Penne Pink Sauce', price: 420, category: 'Pasta', desc: 'Penne with silky smooth white sauce' },
+            'pink sauce pasta': { name: 'Penne Pink Sauce', price: 420, category: 'Pasta', desc: 'Penne with silky smooth white sauce' },
+            'pasta': { name: 'Penne Arrabiata (Red)', price: 370, category: 'Pasta', desc: 'Spicy tomato sauce, garlic and chilly flakes' },
+
+            // ===== POTATO SHOTS =====
+            'pizza samosa': { name: 'Pizza Samosa', price: 220, category: 'Potato Shots', desc: 'Melty cheese in pizza style filling samosas' },
+            'potato crispers': { name: 'Potato Crispers', price: 250, category: 'Potato Shots', desc: 'V-shaped crispers with peri-peri and mayo' },
+            'crispers': { name: 'Potato Crispers', price: 250, category: 'Potato Shots', desc: 'V-shaped crispers with peri-peri and mayo' },
+            'potato wedges': { name: 'Potato Wedges', price: 220, category: 'Potato Shots', desc: 'Skin-on wedges with special seasoning and herbs' },
+            'wedges': { name: 'Potato Wedges', price: 220, category: 'Potato Shots', desc: 'Skin-on wedges with special seasoning and herbs' },
+            'potato cheese shots': { name: 'Potato Cheese Shots', price: 220, category: 'Potato Shots', desc: 'Potatoes, cheese and herbs in golden breadcrumbs' },
+            'cheese shots': { name: 'Potato Cheese Shots', price: 220, category: 'Potato Shots', desc: 'Potatoes, cheese and herbs in golden breadcrumbs' },
+
+            // ===== LOADED FRIES =====
+            'baked fries': { name: 'Baked Fries', price: 280, category: 'Loaded Fries', desc: 'French fries baked with cheese sauce and mozzarella' },
+            'cheese stick': { name: 'Cheese Stick', price: 220, category: 'Loaded Fries', desc: 'Fried cheese sticks with salsa sauce' },
+            'cheese sticks': { name: 'Cheese Stick', price: 220, category: 'Loaded Fries', desc: 'Fried cheese sticks with salsa sauce' },
+            'french fries': { name: 'French Fries', price: 170, category: 'Loaded Fries', desc: 'Fries before guys kind' },
+            'fries': { name: 'French Fries', price: 170, category: 'Loaded Fries', desc: 'Fries before guys kind' },
+            'peri peri fries': { name: 'Peri Peri Fries', price: 220, category: 'Loaded Fries', desc: 'Fries with peri peri spices' },
+            'masala fries': { name: 'Masala Fries', price: 190, category: 'Loaded Fries', desc: 'A spicy treat by chef special' },
+            'barbeque fries': { name: 'Barbeque Fries', price: 240, category: 'Loaded Fries', desc: 'Fries with tandoori and chilli dressing' },
+            'bbq fries': { name: 'Barbeque Fries', price: 240, category: 'Loaded Fries', desc: 'Fries with tandoori and chilli dressing' },
+            'cheese jalapeno fries': { name: 'Cheese Jalapeno Fries', price: 240, category: 'Loaded Fries', desc: 'Fries with cheese and jalapeno dressing' },
+            'jalapeno fries': { name: 'Cheese Jalapeno Fries', price: 240, category: 'Loaded Fries', desc: 'Fries with cheese and jalapeno dressing' },
+            'cheesy salsa fries': { name: 'Cheesy Salsa Fries', price: 240, category: 'Loaded Fries', desc: 'Fries with cheese and salsa dressing' },
+            'salsa fries': { name: 'Cheesy Salsa Fries', price: 240, category: 'Loaded Fries', desc: 'Fries with cheese and salsa dressing' },
+            'mexican fries': { name: 'Mexican Fries', price: 240, category: 'Loaded Fries', desc: 'Fries with cheese, mayo and jalapeno' },
+            'nachos fries': { name: 'Nachos Fries', price: 260, category: 'Loaded Fries', desc: 'Fries and nachos combo with mayo' },
+
+            // ===== GARLIC BREAD =====
+            'cheese garlic bread': { name: 'Cheese Garlic Bread', price: 220, category: 'Garlic Bread', desc: 'Cheese blend, garlic and butter' },
+            'garlic bread': { name: 'Cheese Garlic Bread', price: 220, category: 'Garlic Bread', desc: 'Cheese blend, garlic and butter' },
+            'chili corn garlic bread': { name: 'Chili Corn Garlic Bread', price: 250, category: 'Garlic Bread', desc: 'Cheese blend, corn, green chili' },
+            'corn garlic bread': { name: 'Chili Corn Garlic Bread', price: 250, category: 'Garlic Bread', desc: 'Cheese blend, corn, green chili' },
+            'masala garlic bread': { name: 'Masala Pull-A-Part Garlic Bread', price: 400, category: 'Garlic Bread', desc: 'Fresh baked with garlic butter, indian masala and cheese' },
+            'pull apart': { name: 'Masala Pull-A-Part Garlic Bread', price: 400, category: 'Garlic Bread', desc: 'Fresh baked with garlic butter, indian masala and cheese' },
+            'otc garlic bread': { name: 'OTC Garlic Bread', price: 300, category: 'Garlic Bread', desc: 'Onion, tomato, capsicum with spices' },
+            'pesto garlic bread': { name: 'Pesto Pull-A-Part Garlic Bread', price: 440, category: 'Garlic Bread', desc: 'Fresh baked with garlic butter, pesto and cheese' },
+
+            // ===== WRAP =====
+            'aloo tikki wrap': { name: 'Aloo Tikki Wrap', price: 200, category: 'Wrap', desc: 'Twisty aloo filling with veggies and saucy taste' },
+            'tikki wrap': { name: 'Aloo Tikki Wrap', price: 200, category: 'Wrap', desc: 'Twisty aloo filling with veggies and saucy taste' },
+            'mexican wrap': { name: 'Mexican Wrap', price: 220, category: 'Wrap', desc: 'Tortilla wrap with tangy Mexican patty and salsa' },
+            'paneer tikka wrap': { name: 'Paneer Tikka Wrap', price: 220, category: 'Wrap', desc: 'Paneer tikka, capsicum, onion with tandoori dressing' },
+            'wrap': { name: 'Aloo Tikki Wrap', price: 200, category: 'Wrap', desc: 'Twisty aloo filling with veggies and saucy taste' },
+
+            // ===== CHEF SPECIAL =====
+            'paneer bhurji pao': { name: 'Paneer Bhurji Pao', price: 270, category: 'Chef Special', desc: 'Spicy paneer bhurji with butter pao and cheese' },
+            'bhurji pao': { name: 'Paneer Bhurji Pao', price: 270, category: 'Chef Special', desc: 'Spicy paneer bhurji with butter pao and cheese' },
+            'pao bhaji fondue': { name: 'Pao Bhaji Fondue', price: 350, category: 'Chef Special', desc: 'Bell pepper with indian spices, cheese and crispy bread' },
+            'fondue': { name: 'Pao Bhaji Fondue', price: 350, category: 'Chef Special', desc: 'Bell pepper with indian spices, cheese and crispy bread' },
+            'cheese fondue': { name: 'Pao Bhaji Fondue', price: 350, category: 'Chef Special', desc: 'Bell pepper with indian spices, cheese and crispy bread' },
+            'spicy hot dog': { name: 'Spicy Hot Dog', price: 240, category: 'Chef Special', desc: 'Spicy paneer bhurji on hot dog bread' },
+            'hot dog': { name: 'Spicy Hot Dog', price: 240, category: 'Chef Special', desc: 'Spicy paneer bhurji on hot dog bread' }
+        };
+
+        // ===========================================
+        // MAGGIE AI - 100% LOCAL RULE-BASED
+        // ===========================================
+        let isMuted = false;
+
+        function findItemByKeyword(query) {
+            const q = query.toLowerCase();
+
+            // Direct match
+            if (MENU_DB[q]) return MENU_DB[q];
+
+            // Partial match
+            for (const [key, item] of Object.entries(MENU_DB)) {
+                if (q.includes(key) || key.includes(q)) {
+                    return item;
+                }
+            }
+
+            // Word-by-word match
+            const words = q.split(/\s+/);
+            for (const word of words) {
+                if (word.length < 3) continue;
+                for (const [key, item] of Object.entries(MENU_DB)) {
+                    if (key.includes(word)) return item;
+                }
+            }
+
+            return null;
+        }
+
+        function getMaggieResponse(message) {
+            const msg = message.toLowerCase();
+
+            // Price queries
+            if (msg.includes('price') || msg.includes('cost') || msg.includes('how much')) {
+                const cleanedQuery = msg.replace(/\b(price|cost|how much|of|is|the|a|an)\b/gi, '').replace(/\s+/g, ' ').trim();
+                const item = findItemByKeyword(cleanedQuery);
+                if (item) {
+                    return `${item.name} is priced at \u20B9${item.price}. Want me to suggest something similar?`;
+                }
+                return "I couldn't find that item. Try asking about Cappuccino, Tiramisu Frappe, or our famous Paneer Pizza!";
+            }
+
+            // Mood: Breakup/Sad - EXACT RESPONSE
+            if (msg.includes('breakup') || msg.includes('sad') || msg.includes('heartbreak') ||
+                msg.includes('crying') || msg.includes('depressed') || msg.includes('lonely') ||
+                msg.includes('comfort') || msg.includes('upset') || msg.includes('hurt')) {
+                return "Oh no! \u{1F97A}\u{1F494} Try a Dark Chocolate Frappe (\u20B9200). Sweetness heals!";
+            }
+
+            // Mood: Date/Love - EXACT RESPONSE
+            if (msg.includes('date') || msg.includes('love') || msg.includes('romantic') ||
+                msg.includes('anniversary') || msg.includes('girlfriend') || msg.includes('boyfriend') ||
+                msg.includes('propose') || msg.includes('valentine') || msg.includes('special someone')) {
+                return "Romantic! \u{1F48D}\u2728 Share a Paneer Bhurji Pizza (\u20B9400) and two Cappuccinos.";
+            }
+
+            // Mood: Friends/Fun - EXACT RESPONSE
+            if (msg.includes('friends') || msg.includes('fun') || msg.includes('party') ||
+                msg.includes('gang') || msg.includes('squad') || msg.includes('celebrate') ||
+                msg.includes('hangout') || msg.includes('chill') || msg.includes('group')) {
+                return "Party time! \u{1F483}\u{1F525} Get Peri Peri Fries and a Tower of Mojitos!";
+            }
+
+            // Menu query
+            if (msg.includes('menu') || msg.includes('what do you have') || msg.includes('what do you serve')) {
+                return `Here's what we serve:\n\n☕ Hot Coffee: Cappuccino ₹160, Espresso ₹110, Americano ₹150\n\n🧊 Cold Coffee: Tiramisu Frappe ₹240, Dark Choco ₹200, Nutella ₹300\n\n🍕 Pizza: Paneer Bhurji ₹400, Margarita ₹310\n\n🥪 Sandwiches: Pesto ₹330, Club ₹260\n\n🍟 Sides: Peri Peri Fries ₹220, Nachos ₹270\n\n🍹 Drinks: Mojito ₹170, Ice Tea ₹200`;
+            }
+
+            // Recommendations
+            if (msg.includes('recommend') || msg.includes('suggest') || msg.includes('best') ||
+                msg.includes('popular') || msg.includes('try')) {
+                return "Our bestsellers are the Tiramisu Frappe (₹240) and Paneer Bhurji Pizza (₹400). Pure love! 💕";
+            }
+
+            // Greetings
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey') || msg === 'hii') {
+                return "Hey bestie! 💫 What's the vibe today - coffee, snacks, or just good vibes?";
+            }
+
+            // Thank you
+            if (msg.includes('thank') || msg.includes('thanks')) {
+                return "Anytime! Come visit us at Love Over Coffee. We're at Scheme No 51, Indore! ☕✨";
+            }
+
+            // Location
+            if (msg.includes('where') || msg.includes('location') || msg.includes('address')) {
+                return "We're at PLOT NO 11, Scheme No 51, Indore! Open 8 AM - 11 PM. See you soon! 📍";
+            }
+
+            // Default response with item lookup attempt
+            const item = findItemByKeyword(msg);
+            if (item) {
+                return `Looking for ${item.name}? It's ₹${item.price}. Absolute perfection! ✨`;
+            }
+
+            return "Hmm, I'm not sure about that! Try asking about our menu, prices, or tell me your mood and I'll suggest something perfect! 💫";
+        }
+
+        function speak(text) {
+            if (isMuted || !window.speechSynthesis) return;
+
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text.replace(/[✨💫💕🥺💔💍🍕☕🧊🥪🍟🍹📍💃🔥]/g, ''));
+
+            // Get available voices and select female voice
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v =>
+                v.name.includes('female') ||
+                v.name.includes('Female') ||
+                v.name.includes('Samantha') ||
+                v.name.includes('Victoria') ||
+                v.name.includes('Google UK English Female') ||
+                v.name.includes('Microsoft Zira')
+            ) || voices.find(v => v.lang.includes('en')) || voices[0];
+
+            if (femaleVoice) utterance.voice = femaleVoice;
+            utterance.rate = 1.0;
+            utterance.pitch = 1.1;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function addMessage(text, isUser = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser
+                ? 'chat-bubble-user p-4 max-w-[85%] ml-auto'
+                : 'chat-bubble-maggie p-4 max-w-[85%]';
+            messageDiv.innerHTML = `<p class="whitespace-pre-line">${text}</p>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            if (!isUser) {
+                speak(text);
+            }
+        }
+
+        // ===========================================
+        // HERO CAROUSEL - GSAP ANIMATION
+        // ===========================================
+        const heroItems = document.querySelectorAll('.hero-item');
+        const dots = document.querySelectorAll('#carouselDots button');
+        const heroSection = document.getElementById('hero');
+        let currentIndex = 0;
+        let carouselInterval;
+
+        const bgClasses = ['bg-coffee', 'bg-fiery', 'bg-mint', 'bg-golden'];
+
+        function animateHeroTransition(fromIndex, toIndex) {
+            const currentEl = heroItems[fromIndex];
+            const nextEl = heroItems[toIndex];
+
+            // Update background
+            heroSection.classList.remove(...bgClasses);
+            heroSection.classList.add(bgClasses[toIndex]);
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('bg-neon-purple', i === toIndex);
+                dot.classList.toggle('bg-white/30', i !== toIndex);
+            });
+
+            // GSAP Animation: Current slides DOWN, Next slides UP
+            const tl = gsap.timeline();
+
+            // Current item slides DOWN and fades
+            tl.to(currentEl, {
+                y: '120%',
+                opacity: 0,
+                filter: 'blur(20px)',
+                scale: 0.85,
+                duration: 0.7,
+                ease: 'power3.in',
+                onComplete: () => currentEl.classList.remove('active')
+            }, 0);
+
+            // Next item starts from bottom, slides UP
+            gsap.set(nextEl, { y: '100%', opacity: 0, filter: 'blur(15px)', scale: 0.9 });
+            nextEl.classList.add('active');
+
+            tl.to(nextEl, {
+                y: '0%',
+                opacity: 1,
+                filter: 'blur(0px)',
+                scale: 1,
+                duration: 0.8,
+                ease: 'power2.out'
+            }, 0.2);
+
+            currentIndex = toIndex;
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentIndex + 1) % heroItems.length;
+            animateHeroTransition(currentIndex, nextIndex);
+        }
+
+        function goToSlide(index) {
+            if (index === currentIndex) return;
+            clearInterval(carouselInterval);
+            animateHeroTransition(currentIndex, index);
+            startCarousel();
+        }
+
+        function startCarousel() {
+            carouselInterval = setInterval(nextSlide, 3500);
+        }
+
+        // Dot click handlers
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => goToSlide(i));
+        });
+
+        // Start carousel
+        startCarousel();
+
+        // ===========================================
+        // SWIPER INITIALIZATION
+        // ===========================================
+        const menuSwiper = new Swiper('.menu-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            centeredSlides: true,
+            loop: true,
+            pagination: {
+                el: '.menu-swiper .swiper-pagination',
+                clickable: true
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false
+            }
+        });
+
+        const videosSwiper = new Swiper('.videos-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: {
+                el: '.videos-swiper .swiper-pagination',
+                clickable: true
+            },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+
+        const reviewsSwiper = new Swiper('.reviews-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: {
+                el: '.reviews-swiper .swiper-pagination',
+                clickable: true
+            },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            },
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false
+            }
+        });
+
+        // ===========================================
+        // LEAFLET MAP
+        // ===========================================
+        const map = L.map('map').setView([22.7244, 75.8456], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        const marker = L.marker([22.7244, 75.8456]).addTo(map);
+        marker.bindPopup('<b>Love Over Coffee</b><br>PLOT NO 11, Scheme No 51').openPopup();
+
+        // ===========================================
+        // MAGGIE DRAWER CONTROLS
+        // ===========================================
+        const drawer = document.getElementById('maggieDrawer');
+        const overlay = document.getElementById('overlay');
+        const askMaggieBtn = document.getElementById('askMaggieBtn');
+        const closeDrawerBtn = document.getElementById('closeDrawer');
+        const muteToggle = document.getElementById('muteToggle');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessageBtn = document.getElementById('sendMessage');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.classList.add('opacity-100');
+            chatInput.focus();
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            overlay.classList.remove('opacity-100');
+        }
+
+        askMaggieBtn.addEventListener('click', openDrawer);
+        closeDrawerBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        muteToggle.addEventListener('click', () => {
+            isMuted = !isMuted;
+            volumeIcon.setAttribute('data-lucide', isMuted ? 'volume-x' : 'volume-2');
+            lucide.createIcons();
+        });
+
+        function handleSendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            chatInput.value = '';
+
+            // Simulate typing delay
+            setTimeout(() => {
+                const response = getMaggieResponse(message);
+                addMessage(response, false);
+            }, 500);
+        }
+
+        sendMessageBtn.addEventListener('click', handleSendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSendMessage();
+        });
+
+        // Load voices for speech synthesis
+        if (window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+
+        // Escape key to close drawer
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                closeDrawer();
+            }
+        });
+    </script>
+
+<!-- vedio by rudra -->
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var swiper = new Swiper(".videos-swiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                },
+            });
+        });
+    </script>
+
+</body>
+
+</html>
